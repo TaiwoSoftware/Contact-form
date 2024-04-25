@@ -5,13 +5,15 @@ export default function page() {
     alert('Are you sure you did not make mistake with the details')
   }
   return (
-    <div className=" p-10 bg-white mt-10 mb-10 max-w-3xl m-auto rounded-lg">
-      <h1 className="text-center font-bold text-2xl">Send me a message</h1>
-      <p className="text-center mt-4 mb-4 text-gray-600">
+    <div className=" p-10 bg-white mt-10 mb-10 max-w-3xl m-auto rounded-lg
+    lg:max-w-2xl
+    md:max-w-xl md:p-5 md:px-2 md:mb-10 sm:max-w-sm">
+      <h1 className="text-center font-bold text-2xl ">Send me a message</h1>
+      <p className="text-center mt-4 mb-4 text-gray-600 ">
         Feel free to get in touch with me with anything related to CODINGSPACE{" "}
         <br /> or you can just say hi. I will get back to you as soon as I can.
       </p>
-      <form className=" px-24 pb-20">
+      <form className=" px-24 pb-20 md:px-16 md:pb-10 ">
         <FormInput type="text" placeholder="Your name" />
         <FormInput type="email" placeholder="Email" />
         <FormInput type="text" placeholder="Subject" />
