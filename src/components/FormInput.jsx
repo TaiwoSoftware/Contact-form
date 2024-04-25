@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-export default function FormInput({ type, placeholder }) {
+export default function FormInput({ type, placeholder, valid }) {
   const [value, setValue] = useState("");
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -14,6 +14,7 @@ export default function FormInput({ type, placeholder }) {
         value={value}
         onChange={handleChange}
         required
+        name={valid}
       />
     </>
   );
