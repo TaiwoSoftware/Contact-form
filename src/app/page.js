@@ -1,28 +1,43 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import FormInput from "@/components/FormInput";
+import { useState } from "react";
 export default function page() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [isEmpty, setIsEmpty] = useState(false);
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handleSubject = (e) => {
+    setSubject(e.target.value);
+  };
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        body: JSON.stringify({
-            access_key: "e287982a-6e32-4af0-8564-53b43e01fb79",
-            name: e.target.name.value,
-            email: e.target.email.value,
-            message: e.target.message.value,
-            subject: e.target.subject.value
-        }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "e287982a-6e32-4af0-8564-53b43e01fb79",
+        name: e.target.name.value,
+        email: e.target.email.value,
+        message: e.target.message.value,
+        subject: e.target.subject.value,
+      }),
     });
     const result = await response.json();
     if (result.success) {
-        console.log(result);
+      console.log(result);
     }
-}
-  
+  }
+
   return (
     <div
       className=" p-10 bg-white mt-10 mb-10 max-w-3xl m-auto rounded-lg
@@ -35,9 +50,52 @@ export default function page() {
         <br /> or you can just say hi. I will get back to you as soon as I can.
       </p>
       <form onSubmit={handleSubmit} className=" px-24 pb-20 md:px-16 md:pb-10 ">
-        <FormInput type="text" valid='name' placeholder="Your name" />
-        <FormInput type="email" valid='email'  placeholder="Email" />
-        <FormInput type="text" valid='subject'  placeholder="Subject" />
+      {name !== '' ? (<FormInput
+          type="text"
+          handleChange={handleChange}
+          data={name}
+          valid="name"
+          styling="absolute mt-[-3rem] ml-[31rem] "
+          placeholder="Your name"
+        />) : <FormInput
+          type="text"
+          handleChange={handleChange}
+          data={name}
+          valid="name"
+          styling="absolute mt-[-3rem] ml-[31rem] hidden"
+          placeholder="Your name"
+        />}
+        
+        {email !== '' ? (<FormInput
+          type="email"
+          handleChange={handleEmail}
+          data={email}
+          valid="email"
+          styling="absolute mt-[-3rem] ml-[31rem] "
+          placeholder="Email"
+        />) : (<FormInput
+          type="email"
+          handleChange={handleEmail}
+          data={email}
+          valid="email"
+          styling="absolute mt-[-3rem] ml-[31rem] hidden"
+          placeholder="Email"
+        />)}
+        {subject !== '' ? (<FormInput
+          type="text"
+          handleChange={handleSubject}
+          data={subject}
+          valid="subject"
+          styling="absolute mt-[-3rem] ml-[31rem] "
+          placeholder="Subject"
+        />) : (<FormInput
+          type="text"
+          handleChange={handleSubject}
+          data={subject}
+          valid="subject"
+          styling="absolute mt-[-3rem] ml-[31rem] hidden"
+          placeholder="Subject"
+        />)}
         <textarea
           placeholder="Message"
           name="message"
@@ -48,7 +106,7 @@ export default function page() {
         ></textarea>
         <button
           type="submit"
-          className="bg-gradient-to-r from-blue-400 to-indigo-500 w-full px-5 py-4 text-white rounded-lg"
+          className=" bg-gradient-to-r from-blue-400 to-indigo-500 w-full px-5 py-4 text-white rounded-lg"
         >
           Send
         </button>
